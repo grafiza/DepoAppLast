@@ -4,14 +4,15 @@ import java.util.Scanner;
 public class ProductsRunner {
     static Scanner scan = new Scanner(System.in);
     static ProductService ps = new ProductService();
+
     public static void main(String[] args) {
 
         start();
     }
 
     public static void start() {
-        Scanner scan = new Scanner(System.in);
         int select = -1;
+
 
         System.out.println("---- Depo Sistemi ----");
         System.out.println("1. Ürün Tanımlama");

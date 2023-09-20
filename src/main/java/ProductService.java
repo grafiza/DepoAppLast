@@ -8,6 +8,7 @@ public class ProductService {
     Scanner scan = new Scanner(System.in);
     HashMap<String, Product> products = new HashMap<>();
 
+
     public void describeProduct() {
         System.out.println();
         String id, urunAdi, uretici, birimAdi, secim;
@@ -48,8 +49,8 @@ public class ProductService {
             }
 
 
-            Product prod = new Product(id, urunAdi, uretici, 0, birimAdi, "-");
-            this.products.put(id, prod);
+           Product product = new Product(id, urunAdi, uretici, 0, birimAdi, "-");
+            products.put(id, product);
             System.out.println("Yeni ürün eklemek istiyor musunuz? (E/H");
             secim = scan.nextLine();
         } while (secim.equals("E") || secim.equals("e"));
@@ -59,15 +60,16 @@ public class ProductService {
     }
 
     public void addProduct() {
-
+        System.out.println();
         System.out.println("Ürün id'sini giriniz");
         String id = scan.nextLine();
+
+        Product product = this.products.get(id);
         System.out.println("Miktarı giriniz:");
         int miktar = scan.nextInt();
-        String dummy = scan.nextLine();
-        Product product = this.products.get(id);
         miktar += product.getAmount();
         product.setAmount(miktar);
+        String dummy = scan.nextLine();
         this.printProducts();
     }
 
@@ -95,6 +97,7 @@ public class ProductService {
         String dummy = scan.nextLine();
         if (miktar > product.getAmount()) {
             System.out.println("Stokta girdiğiniz kadar ürün bulunmamaktadır");
+            product.setAmount(0);
         } else {
 
             miktar = product.getAmount() - miktar;

@@ -1,11 +1,9 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ProductService {
 
     Scanner scan = new Scanner(System.in);
+    static int idCounter = 1000;
     HashMap<String, Product> products = new HashMap<>();
 
 
@@ -14,20 +12,30 @@ public class ProductService {
         String id, urunAdi, uretici, birimAdi, secim;
 
         do {
-            System.out.println("Ürün id'sini Giriniz");
-            id = scan.nextLine();
-            System.out.println("Ürün Adını Giriniz");
+
+            System.out.println("\t\tÜrün Adını Giriniz");
             urunAdi = scan.nextLine();
-            System.out.println("Ürün Üreticisini Giriniz");
+            System.out.println("\t\tÜrün Üreticisini Giriniz");
             uretici = scan.nextLine();
-            System.out.println("Ürün Birimini Giriniz");
-            System.out.println("1. Adet");
-            System.out.println("2. Kg");
-            System.out.println("3. Çuval");
-            System.out.println("4. Palet");
-            System.out.println("5. Koli");
-            int birim = scan.nextInt();
+
+
+            int birim = 0;
+            try {
+
+                System.out.println("\t\tÜrün Birimini Giriniz");
+                System.out.println("\t\t1. Adet");
+                System.out.println("\t\t2. Kg");
+                System.out.println("\t\t3. Çuval");
+                System.out.println("\t\t4. Palet");
+                System.out.println("\t\t5. Koli");
+                birim = scan.nextInt();
+
+            } catch (InputMismatchException exception) {
+                System.out.println("Adet Girildi !!!");
+            }
+
             String dummy = scan.nextLine();
+
             switch (birim) {
                 case 1:
                     birimAdi = "Adet";
@@ -49,11 +57,13 @@ public class ProductService {
             }
 
 
-           Product product = new Product(id, urunAdi, uretici, 0, birimAdi, "-");
+            id = String.valueOf(idCounter);
+            Product product = new Product(id, urunAdi, uretici, 0, birimAdi, "-");
             products.put(id, product);
-            System.out.println("Yeni ürün eklemek istiyor musunuz? (E/H");
-            secim = scan.nextLine();
-        } while (secim.equals("E") || secim.equals("e"));
+            System.out.println("\t\tYeni ürün eklemek istiyor musunuz? (E/H)");
+            secim = scan.nextLine().toUpperCase();
+            idCounter++;
+        } while (secim.equals("E"));
         this.printProducts();
         ProductsRunner.start();
 
@@ -61,11 +71,11 @@ public class ProductService {
 
     public void addProduct() {
         System.out.println();
-        System.out.println("Ürün id'sini giriniz");
+        System.out.println("\t\tÜrün id'sini giriniz");
         String id = scan.nextLine();
 
         Product product = this.products.get(id);
-        System.out.println("Miktarı giriniz:");
+        System.out.println("\t\tMiktarı giriniz:");
         int miktar = scan.nextInt();
         miktar += product.getAmount();
         product.setAmount(miktar);
@@ -74,10 +84,10 @@ public class ProductService {
     }
 
     public void printProducts() {
-        System.out.printf("%-8s %-10s %-10s %-10s %-10s %-10s\n", "Ürün ID", "Ürün Adı", "Üretici", "Miktar", "Birim", "Raf");
-        System.out.printf("----------------------------------------------------------------\n");
+        System.out.printf("%-8s %-15s %-15s %-15s %-15s %-15s\n", "Ürün ID", "Ürün Adı", "Üretici", "Miktar", "Birim", "Raf");
+        System.out.printf("----------------------------------------------------------------------------------------\n");
         for (Product p : this.products.values()) {
-            System.out.printf("%-8s %-10s %-10s %-10s %-10s %-10s\n",
+            System.out.printf("%-8s %-15s %-15s %-15s %-15s %-15s\n",
                     p.getProductId(),
                     p.getProductName(),
                     p.getProducer(),
@@ -89,14 +99,14 @@ public class ProductService {
     }
 
     public void removeProduct() {
-        System.out.println("Ürün id'sini giriniz");
+        System.out.println("\t\tÜrün id'sini giriniz");
         String id = scan.nextLine();
         Product product = this.products.get(id);
-        System.out.println("Çıkarmak istediğiniz miktarı giriniz:");
+        System.out.println("\t\tÇıkarmak istediğiniz miktarı giriniz:");
         int miktar = scan.nextInt();
         String dummy = scan.nextLine();
         if (miktar > product.getAmount()) {
-            System.out.println("Stokta girdiğiniz kadar ürün bulunmamaktadır");
+            System.out.println("\t\tStokta girdiğiniz kadar ürün bulunmamaktadır");
             product.setAmount(0);
         } else {
 
@@ -107,10 +117,10 @@ public class ProductService {
     }
 
     public void putToShelf() {
-        System.out.println("Ürün id'sini giriniz");
+        System.out.println("\t\tÜrün id'sini giriniz");
         String id = scan.nextLine();
         Product product = this.products.get(id);
-        System.out.println("Raf Bilgisini Giriniz");
+        System.out.println("\t\tRaf Bilgisini Giriniz");
         String raf = scan.nextLine();
         product.setShelf(raf);
         this.printProducts();

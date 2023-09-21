@@ -13,14 +13,15 @@ public class ProductsRunner {
     public static void start() {
         int select = -1;
 
-
-        System.out.println("---- Depo Sistemi ----");
-        System.out.println("1. Ürün Tanımlama");
-        System.out.println("2. Ürün Listeleme");
-        System.out.println("3. Ürün Girişi");
-        System.out.println("4. Ürün Çıkışı");
-        System.out.println("5. Rafa Koy");
-        System.out.println("0. Çıkış");
+        System.out.println("-".repeat(50));
+        System.out.println("                 Depo Sistemi v1.0");
+        System.out.println("-".repeat(50));
+        System.out.println("\t\t1. Ürün Tanımlama");
+        System.out.println("\t\t2. Ürün Listeleme");
+        System.out.println("\t\t3. Ürün Girişi");
+        System.out.println("\t\t4. Ürün Çıkışı");
+        System.out.println("\t\t5. Rafa Koy");
+        System.out.println("\t\t0. Çıkış");
         select = scan.nextInt();
         switch (select) {
             case 1:

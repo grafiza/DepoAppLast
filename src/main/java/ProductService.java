@@ -87,8 +87,12 @@ public class ProductService {
 
     public void printProducts() {
         System.out.printf("%-8s %-15s %-15s %-15s %-15s %-15s\n", "Ürün ID", "Ürün Adı", "Üretici", "Miktar", "Birim", "Raf");
-        System.out.printf("----------------------------------------------------------------------------------------\n");
-        for (Product p : this.products.values()) {
+        System.out.printf("-------------------------------------------------------------------------------------\n");
+        Set<String> sorted = products.keySet();
+        List<String> productIdsAsList = new ArrayList<>(sorted);
+        Collections.sort(productIdsAsList);
+        for (String w : productIdsAsList) {
+            Product p = this.products.get(w);
             System.out.printf("%-8s %-15s %-15s %-15s %-15s %-15s\n",
                     p.getProductId(),
                     p.getProductName(),
@@ -126,12 +130,11 @@ public class ProductService {
         System.out.println("Ürün id'sini giriniz");
         String id = scan.nextLine();
         Product product = this.products.get(id);
-        if(product!=null) {
+        if (product != null) {
             System.out.println("Raf Bilgisini Giriniz");
             String raf = scan.nextLine();
             product.setShelf(raf);
-        }
-        else
+        } else
             System.out.println("Ürün Bulunamadı !");
         this.printProducts();
 

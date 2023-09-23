@@ -60,7 +60,7 @@ public class ProductService {
             id = String.valueOf(idCounter);
             Product product = new Product(id, urunAdi, uretici, 0, birimAdi, "-");
             products.put(id, product);
-            System.out.println("Ürün Kaydeildi...\nYeni ürün eklemek istiyor musunuz? (E/H)");
+            System.out.println("Ürün Kaydedildi...\nYeni ürün eklemek istiyor musunuz? (E/H)");
             secim = scan.nextLine().toUpperCase();
             idCounter++;
         } while (secim.equals("E"));

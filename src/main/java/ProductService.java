@@ -13,21 +13,21 @@ public class ProductService {
 
         do {
 
-            System.out.println("\t\tÜrün Adını Giriniz");
+            System.out.println("Ürün Adını Giriniz");
             urunAdi = scan.nextLine();
-            System.out.println("\t\tÜrün Üreticisini Giriniz");
+            System.out.println("Ürün Üreticisini Giriniz");
             uretici = scan.nextLine();
 
 
             int birim = 0;
             try {
 
-                System.out.println("\t\tÜrün Birimini Giriniz");
-                System.out.println("\t\t1. Adet");
-                System.out.println("\t\t2. Kg");
-                System.out.println("\t\t3. Çuval");
-                System.out.println("\t\t4. Palet");
-                System.out.println("\t\t5. Koli");
+                System.out.println("Ürün Birimini Giriniz");
+                System.out.println("1. Adet");
+                System.out.println("2. Kg");
+                System.out.println("3. Çuval");
+                System.out.println("4. Palet");
+                System.out.println("5. Koli");
                 birim = scan.nextInt();
 
             } catch (InputMismatchException exception) {
@@ -60,7 +60,7 @@ public class ProductService {
             id = String.valueOf(idCounter);
             Product product = new Product(id, urunAdi, uretici, 0, birimAdi, "-");
             products.put(id, product);
-            System.out.println("\t\tÜrün Kaydeildi...\n\t\tYeni ürün eklemek istiyor musunuz? (E/H)");
+            System.out.println("Ürün Kaydeildi...\nYeni ürün eklemek istiyor musunuz? (E/H)");
             secim = scan.nextLine().toUpperCase();
             idCounter++;
         } while (secim.equals("E"));
@@ -71,15 +71,17 @@ public class ProductService {
 
     public void addProduct() {
         System.out.println();
-        System.out.println("\t\tÜrün id'sini giriniz");
+        System.out.println("Ürün id'sini giriniz");
         String id = scan.nextLine();
-
         Product product = this.products.get(id);
-        System.out.println("\t\tMiktarı giriniz:");
-        int miktar = scan.nextInt();
-        miktar += product.getAmount();
-        product.setAmount(miktar);
-        String dummy = scan.nextLine();
+        if (product != null) {
+            System.out.println("Miktarı giriniz:");
+            int miktar = scan.nextInt();
+            miktar += product.getAmount();
+            product.setAmount(miktar);
+            String dummy = scan.nextLine();
+        } else
+            System.out.println("Ürün Bulunamadı!");
         this.printProducts();
     }
 
@@ -99,30 +101,38 @@ public class ProductService {
     }
 
     public void removeProduct() {
-        System.out.println("\t\tÜrün id'sini giriniz");
+        System.out.println("Ürün id'sini giriniz");
         String id = scan.nextLine();
-        Product product = this.products.get(id);
-        System.out.println("\t\tÇıkarmak istediğiniz miktarı giriniz:");
-        int miktar = scan.nextInt();
-        String dummy = scan.nextLine();
-        if (miktar > product.getAmount()) {
-            System.out.println("\t\tStokta girdiğiniz kadar ürün bulunmamaktadır");
-            product.setAmount(0);
-        } else {
 
-            miktar = product.getAmount() - miktar;
-            product.setAmount(miktar);
-        }
+        Product product = this.products.get(id);
+        if (product != null) {
+            System.out.println("Çıkarmak istediğiniz miktarı giriniz:");
+            int miktar = scan.nextInt();
+            String dummy = scan.nextLine();
+            if (miktar > product.getAmount()) {
+                System.out.println("Stokta girdiğiniz kadar ürün bulunmamaktadır");
+                product.setAmount(0);
+            } else {
+
+                miktar = product.getAmount() - miktar;
+                product.setAmount(miktar);
+            }
+        } else
+            System.out.println("Ürün Bulunamadı !");
         this.printProducts();
     }
 
     public void putToShelf() {
-        System.out.println("\t\tÜrün id'sini giriniz");
+        System.out.println("Ürün id'sini giriniz");
         String id = scan.nextLine();
         Product product = this.products.get(id);
-        System.out.println("\t\tRaf Bilgisini Giriniz");
-        String raf = scan.nextLine();
-        product.setShelf(raf);
+        if(product!=null) {
+            System.out.println("Raf Bilgisini Giriniz");
+            String raf = scan.nextLine();
+            product.setShelf(raf);
+        }
+        else
+            System.out.println("Ürün Bulunamadı !");
         this.printProducts();
 
     }

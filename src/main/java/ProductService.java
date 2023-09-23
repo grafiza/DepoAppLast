@@ -114,7 +114,7 @@ public class ProductService {
             int miktar = scan.nextInt();
             String dummy = scan.nextLine();
             if (miktar > product.getAmount()) {
-                System.out.println("Stokta girdiğiniz kadar ürün bulunmamaktadır");
+                System.out.println("\nStokta girdiğiniz kadar ürün bulunmamaktadır. \n Stok 0 olarak güncellendi.");
                 product.setAmount(0);
             } else {
 
